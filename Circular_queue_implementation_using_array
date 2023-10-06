@@ -1,0 +1,88 @@
+#include <stdio.h>
+#define SIZ 5
+int queue[SIZ];
+int front = -1;
+int rear = -1;
+void insert(int x);
+int delete();
+void display();
+int main()
+{
+    int d,x;
+    insert(10);
+    insert(15);
+    insert(25);
+    insert(35);
+    insert(43);
+    printf("--------------------------------\n");
+    display();
+    d = delete();
+    printf("Deleted Item is %d\n",d);
+    printf("--------------------------------\n");
+    display();
+    insert(98);
+    printf("--------------------------------\n");
+    display();
+    x = delete();
+    printf("Deleted item is %d\n",x);
+    insert(79);
+    printf("--------------------------------\n");
+    display();
+    insert(44);
+    delete();
+    insert(44);
+    printf("--------------------------------\n");
+    display();
+    return 0;
+}
+void insert(int x){
+        if((rear==SIZ-1 && front==0) || (rear+1==front)){
+            printf("Queue is Full\n");
+        }
+        else{
+            if(rear==-1){
+                front++;
+            }
+            if(rear==SIZ-1){
+                rear = -1;
+            }
+                rear++;
+                queue[rear] = x;
+        }
+}
+int delete(){
+    int p;
+    if(front==-1){
+        printf("Queue is EMpty\n");
+    }
+    else{
+        p = queue[front];
+        if(front==rear){
+            front = rear = -1;
+        }
+        if(rear>front){
+            front++;
+        }
+        else if(rear<front){
+            if(front==SIZ-1)
+            front=0;
+            else
+            front++;
+        }
+    }
+    return p;
+}
+void display(){
+    int i = front;
+   
+    while(i!=rear){
+        printf("%d\n",queue[i]);
+        i++;
+        
+        if(i==SIZ && rear<front){
+            i = 0;
+        }
+
+    }
+    printf("%d\n",queue[i]);
+}
